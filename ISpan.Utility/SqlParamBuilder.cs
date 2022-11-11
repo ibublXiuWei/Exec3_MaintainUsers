@@ -24,9 +24,9 @@ namespace ISpan.Utility
 			parameters.Add(param);
 			return this;
 		}
-		public SqlParamBuilder AddDatetime(string Birth, DateTime value)
+		public SqlParamBuilder AddDatetime(string Birth, string value)
 		{
-			var param=new SqlParameter(Birth,SqlDbType.DateTime2) { Value= value };
+			var param=new SqlParameter(Birth,SqlDbType.DateTime) { Value= value };
 			parameters.Add(param);
 			return this;
 		}
