@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,24 @@ namespace ISpan.Utility
 				command.Parameters.AddRange(parameters);
 				command.ExecuteNonQuery();
 			}
-			
 		}
+		public DataTable Select(string sql, SqlParameter[] parameters)
+		{
+			using(var conn=new SqlConnection(ConnString))
+			{
+				var command=new SqlCommand(sql, conn);
+				if(parameters!=null)
+				{
+					command.Parameters.AddRange(parameters);
+				}
+				SqlDataAdapter adapter = new SqlDataAdapter(command);
+				DataSet dataset=new DataSet();
+
+				adapter.Fill(dataset, "Tablename");
+
+				return dataset.Tables["Tablename"];
+			}
+		}
+	
 	}
 }
